@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sncfc.analytic.dao.AreaRelationMapper">
+
+    <resultMap id="areaRelation" type="com.sncfc.analytic.pojo.AreaRelation">  </resultMap>
+    <select id="queryAreaRelations" resultMap="areaRelation">
+        SELECT * FROM CFC_SOR.TSOR_CFC_SNCOM_AREA_T
+          <where>
+              status = 1
+              <if test="strCode != null and strCode != '' ">
+                  AND STR_CODE = #{strCode}
+              </if>
+              <if test="strName != null and strName != ''">
+                  AND STR_NAME LIKE '%'|| #{strName} || '%'
+              </if>
+              <if test="areaCode != null and areaCode != ''">
+                  AND AREA_CODE = #{areaCode}
+              </if>
+              <if test="areaName != null  and areaName != ''">
+                  AND AREA_NAME LIKE '%'|| #{areaName} || '%'
+              </if>
+          </where>
+       ORDER BY ID DESC
+    </select>
+    <select id="queryDistinctAreaRelations" resultType="Map" >
+        SELECT AREA_NAME,AREA_CODE  FROM CFC_SOR.TSOR_CFC_SNCOM_AREA_T
+        WHERE STATUS = 1
+        GROUP BY AREA_NAME,AREA_CODE
+    </select>
+    <update id="updateAreaRelation">
+        UPDATE CFC_SOR.TSOR_CFC_SNCOM_AREA_T
+        <set>
+            <if test="begindate != null">
+                BEGINDATE = #{begindate},
+            </if>
+            <if test="enddate != null">
+                ENDDATE = #{enddate},
+            </if>
+            <if test="strCode != null">
+                STR_CODE = #{strCode},
+            </if>
+            <if test="strName != null">
+                STR_NAME = #{strName},
+            </if>
+            <if test="areaCode != null">
+                AREA_CODE = #{areaCode},
+            </if>
+            <if test="areaName != null">
+                AREA_NAME = #{areaName},
+            </if>
+            UPDATE_TIME = sysdate
+        </set>
+       where ID = #{id}
+    </update>
+    <insert id="insertAreaRelation">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT  cfc_rpt.seq_smart_analytics.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO CFC_SOR.TSOR_CFC_SNCOM_AREA_T(ID, BEGINDATE, ENDDATE, STR_CODE, STR_NAME, AREA_CODE, AREA_NAME, CREATE_DATE, CREATE_ID, STATUS, UPDATE_TIME)
+        VALUES ( #{id}, #{begindate}, #{enddate}, #{strCode}, #{strName}, #{areaCode},#{areaName},sysdate, null, '1', null)
+    </insert>
+</mapper>

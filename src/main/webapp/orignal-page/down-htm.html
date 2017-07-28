@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>销售分析</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
+    <link href="../css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+
+    <link href="../css/total-lend.css" rel="stylesheet">
+    <link href="../css/smart.css" rel="stylesheet">
+
+    <style>
+        .page-heading{
+            border-top: 0;
+            padding: 0 10px 8px 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+
+<body style="background-color: transparent;">
+
+<div  class="gray-bg">
+
+    <div class="wrapper my-wrapper " >
+        <!--00000000000000000000000000000000000000000000000000-->
+        <!--目录-->
+        <div class="row  white-bg page-heading">
+            <h2>目录<h4>【查询期2017-01-01至2017-01-02 ，对比期2017-01-01至2017-01-02】</h4></h2>
+        </div>
+        <!--目录 明细-->
+        <div class="ibox" >
+            <!--<div class="ibox-title">-->
+                <!--<h5>目录</h5>-->
+            <!--</div>-->
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h4 class="font-bold"> 一、达成率</h4>
+                        <p>达成情况及预测</p>
+                        <p> 区域达成情况及排名</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4 class="font-bold">
+                            二、总投放对比情况
+                        </h4>
+                        <p>产品拆分</p>
+                        <p>客群分析</p>
+                        <p>区域分析</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4 class="font-bold">
+                            三、易购门店对比情况
+                        </h4>
+                        <p>营销策略分析</p>
+                        <p>构成分析</p>
+                        <p>营销能力分析</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4 class="font-bold">
+                            四、易购线上对比情况
+                        </h4>
+                        <p>营销策略分析</p>
+                        <p>构成分析</p>
+                        <p>营销能力分析</p>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-3">
+                        <h4 class="font-bold">
+                            五、第三方对比情况
+                        </h4>
+                        <p>第三方产品对比数据</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4 class="font-bold">
+                            六、随借随还对比情况
+                        </h4>
+                        <p>营销策略分析</p>
+                        <p>客群分析</p>
+                        <p>额度影响</p>
+                        <p>营销活动明细</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h4 class="font-bold">
+                            七、现金分期对比情
+                        </h4>
+                        <p>营销策略分析</p>
+                        <p>构成分析</p>
+                        <p>额度影响</p>
+                        <p>营销活动明细</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--1111111111111111111111111111111111111111111111111111111-->
+        <!-- 目录1 达成率  -->
+        <div class="row  white-bg page-heading">
+                <h2>达成率</h2>
+        </div>
+        <!--达成情况及预测-->
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>达成情况及预测</h5>
+            </div>
+            <div class="ibox-content">
+                <div id="areaChart" class="normal-chart">
+
+                </div>
+
+            </div>
+        </div>
+        <!--区域达成及排名-->
+        <div class="ibox" id="ibox">
+            <div class="ibox-title">
+                <h5>区域达成及排名</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="sk-spinner sk-spinner-wave">
+                    <div class="sk-rect1"></div>
+                    <div class="sk-rect2"></div>
+                    <div class="sk-rect3"></div>
+                    <div class="sk-rect4"></div>
+                    <div class="sk-rect5"></div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>区域 </th>
+                            <th>门店总投放</th>
+                            <th>门店新客户投放</th>
+                            <th>门店新客户</th>
+                            <th>现金贷总投放</th>
+                            <th>自拓现金贷投放</th>
+                            <th>自拓现金贷新客户数</th>
+                            <th>第三方总投放</th>
+                            <th>第三方新增投放客户数</th>
+                            <th>排名</th>
+                        </tr>
+                        </thead>
+                        <tbody id="loggerList">
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>.
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                        <tr>
+                            <td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>1</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--2222222222222222222222222222222222222222222222222222222222222222222-->
+        <!-- 目录2 总投放对比情况  -->
+        <div class="row  white-bg page-heading">
+            <h2>总投放对比情况</h2>
+        </div>
+        <!--产品分析-->
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>产品分析</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="product-container">
+
+                    <div class="my-box ztf-position">
+                        <div class="my-box-title">总投放</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+                    <!--购物贷-->
+                    <div class="my-box gwd-position">
+                        <div class="my-box-title">购物贷</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+                    <!--现金贷-->
+                    <div class="my-box xjd-position">
+                        <div class="my-box-title">现金贷</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <!--易购整体-->
+                    <div class="my-long-box ygzt-position">
+                        <div class="my-box-title">易购整体</div>
+                        <div class="my-box-content width-25">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-25">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-25">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                            <div ><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+
+                    <!--第三方-->
+                    <div class="my-box dsf-position">
+                        <div class="my-box-title">第三方</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+                    <!--随借随还-->
+                    <div class="my-box sjsh-position">
+                        <div class="my-box-title">随借随还</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+                    <!--现金分期-->
+                    <div class="my-box xjfq-position">
+                        <div class="my-box-title">现金分期</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <!--易购门店-->
+                    <div class="my-box ygmd-position">
+                        <div class="my-box-title">易购门店</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <!--易购线上-->
+                    <div class="my-box ygxs-position">
+                        <div class="my-box-title">易购线上</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>客单价</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+                    <!--第一条线-->
+                    <div class="connect-line one-two">
+                        <div class="connect-line-top one-two-top"></div>
+                        <span class="connect-line-hen"></span>
+                        <div class="triangle-down-box left-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                        <div class="triangle-down-box right-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                    </div>
+                    <!--第二条线-->
+                    <div class="connect-line two-three">
+                        <div class="connect-line-top two-three-top"></div>
+                        <span class="connect-line-hen"></span>
+                        <div class="triangle-down-box left-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                        <div class="triangle-down-box right-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                    </div>
+                    <!--第三条线-->
+                    <div class="connect-line two-three-right">
+                        <div class="connect-line-top two-three-right-top"></div>
+                        <span class="connect-line-hen"></span>
+                        <div class="triangle-down-box left-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                        <div class="triangle-down-box right-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                    </div>
+                    <!--第四条线-->
+                    <div class="connect-line four">
+                        <div class="connect-line-top four-top"></div>
+                        <span class="connect-line-hen"></span>
+                        <div class="triangle-down-box left-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                        <div class="triangle-down-box right-triangle">
+                            <div class="shu-line"></div>
+                            <div class="triangle-down"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--客群分析-->
+        <!--新客户-->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="ibox" >
+                    <div class="ibox-title">
+                        <h5>首购客户&nbsp;&nbsp;</h5>
+                        <span class="label label-primary">人数201321</span>
+                        <span class="label label-primary">增长20%</span>
+                        <span class="label label-primary">贡献度123123万元</span>
+                        <span class="label label-primary">贡献率20%</span>
+                        <span class="label label-primary">增长50%</span>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>产品 </th>
+                                    <th>查询期人数</th>
+                                    <th>人数增长</th>
+                                    <th>查询期贡献</th>
+                                    <th>贡献增长</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="ibox" >
+                    <div class="ibox-title">
+                        <h5>复购客户&nbsp;&nbsp;</h5>
+                        <span class="label label-primary">人数201321</span>
+                        <span class="label label-primary">增长20%</span>
+                        <span class="label label-primary">贡献度123123万元</span>
+                        <span class="label label-primary">贡献率20%</span>
+                        <span class="label label-primary">增长50%</span>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>产品 </th>
+                                    <th>查询期人数</th>
+                                    <th>人数增长</th>
+                                    <th>查询期贡献</th>
+                                    <th>贡献增长</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>客户申请分析（辅助分析）</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="product-container" style="height: 680px;margin-bottom: 20px;">
+                    <!--第三层-->
+                    <div class="my-box ktcg-khs-position" >
+                        <div class="my-box-title">开通成功用户</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <!--第四层-->
+                    <div class="my-box sqkt-khs-position" >
+                        <div class="my-box-title">申请开通用户</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <div class="my-box zdkt-khs-position" >
+                        <div class="my-box-title">自动开通用户</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <!--第五层-->
+                    <div class="my-box ysxyh-khs-position" >
+                        <div class="my-box-title">预授信用户</div>
+                        <div class="my-box-content width-100">
+                            <div ><p>查询期</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <div class="my-box sqcg-khs-position" >
+                        <div class="my-box-title">申请成功用户</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+                    <!--第六层-->
+                    <div class="my-box sqyh-khs-position" >
+                        <div class="my-box-title">申请用户</div>
+                        <div class="my-box-content width-50">
+                            <div ><p>投放金额</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                        <div class="my-box-content width-50">
+                            <div><p>投放人数</p><p>132456</p></div>
+                            <div><p>增长率</p><p>132456</p></div>
+                        </div>
+                    </div>
+
+
+                    <!-- 向左箭头 带折线-->
+                    <div class="left-zhe-triangle line-9">
+                        <div class="h-line "></div>
+                        <div class="triangle-left "></div>
+                        <div class="s-line "></div>
+                    </div>
+                    <!-- 向右箭头 带折线-->
+                    <div class="left-zhe-triangle line-10">
+                        <div class="h-line "></div>
+                        <div class="triangle-right "></div>
+                        <div class="s-line "></div>
+                    </div>
+                    <!-- 向左箭头 带折线-->
+                    <div class="left-zhe-triangle line-11">
+                        <div class="h-line "></div>
+                        <div class="triangle-left "></div>
+                        <div class="s-line "></div>
+                    </div>
+
+                    <!-- 向右箭头 带折线-->
+                    <div class="left-zhe-triangle line-12">
+                        <div class="h-line "></div>
+                        <div class="triangle-right "></div>
+                        <div class="s-line "></div>
+                    </div>
+                    <!-- 向上箭头-->
+                    <div class="up-zx-triangle line-13">
+                        <div class="s-line "></div>
+                        <div class="triangle-up "></div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>新客来源渠道 </th>
+                                    <th>申请用户</th>
+                                    <th>申请成功客户</th>
+                                    <th>申请通过率</th>
+                                    <th>开通成功人数</th>
+                                    <th>使用人数</th>
+                                    <th>使用率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" >
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>定向邀请客户来源渠道 </th>
+                                    <th>申请开通人数</th>
+                                    <th>开通成功人数</th>
+                                    <th>开通成功率 </th>
+                                    <th>使用人数</th>
+                                    <th>使用率 </th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <p class="text-primary">指标说明【存量用户定义为开业到查询期前的用户】
+                    <p class="text-warning">【注：分析中涉及开通的用户指在易付宝端申请开通的用户】</p></p>
+                    <ul>
+                        <li> 申请额度用户：主动申请额度用户</li>
+                        <li>申请额度成功客户：申请额度成功的客户</li>
+                        <li>预授信客户：截止到查询期结束所有的预授信用户</li>
+                        <li>申请开通客户：申请开通的客户，包含预授信客户和主动申请客户</li>
+                        <li>开通成功客户：查询期内成功开通的客户</li>
+                        <li>新使用客户：查询期内首次使用任性付的客户</li>
+                        <li>存量用户：指开业到去年年末的各阶段用户数（剔除冻结用户）</li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--3333333333333333333333333333333333333333333333333333333333333333-->
+        <!-- 目录3 易购门店对比情况  -->
+        <div class="row  white-bg page-heading">
+            <h2>三、易购门店对比情况</h2>
+        </div>
+        <!--营销策略分析-->
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>营销策略分析【注：活动包含三零分期和购物贷电子券】</h5>
+            </div>
+            <div class="ibox-content">
+                <div id="marketingChart" class="normal-chart">
+
+                </div>
+            </div>
+        </div>
+
+        <!--构成分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>构成分析&nbsp;&nbsp;</h5>
+                <span class="label label-primary">品类客单人数</span>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>品类 </th>
+                                    <th>投放金额</th>
+                                    <th>增长率</th>
+                                    <th>客单价</th>
+                                    <th>增长率</th>
+                                    <th>投放人数</th>
+                                    <th>增长率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" >
+                        <div id="circleChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--构成分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>客群构成分析&nbsp;&nbsp;</h5>
+                <span class="label label-primary"></span>
+            </div>
+            <div class="ibox-content" style="padding-top: 20px;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div id="custSTLChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="custGCChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px;">
+                    <div class="col-lg-12" >
+                        <div id="custQDChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--新老客户分析-->
+        <div class="row">
+            <div class="col-lg-6" >
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>新客户&nbsp;&nbsp;</h5>
+                        <span class="label label-primary">123213</span>
+                        <span class="label label-primary">增长80%</span>
+                        <div class="ibox-tools">
+                            <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal6">?</a>-->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>品类 </th>
+                                    <th>投放金额</th>
+                                    <th>增长率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" >
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>老客户&nbsp;&nbsp;</h5>
+                        <span class="label label-primary">123213</span>
+                        <span class="label label-primary">增长80%</span>
+                        <div class="ibox-tools">
+                            <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal6">?</a>-->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>品类 </th>
+                                    <th>投放金额</th>
+                                    <th>增长率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--营销能力分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>营销能力分析</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>品类 </th>
+                            <th>投放金额</th>
+                            <th>对比期金额</th>
+                            <th>增长</th>
+                            <th>实际渗透率</th>
+                            <th>对比期实际<th>
+                            <th>增长</th>
+                            <th>可达渗透率</th>
+                            <th>对比期可达</th>
+                            <th>增长</th>
+                            <th>实际/可达</th>
+                            <th>对比期实际/可达</th>
+                            <th>增长</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--4444444444444444444444444444444444444444444444444-->
+        <!-- 目录4 易购线上对比情况  -->
+        <div class="row  white-bg page-heading">
+            <h2>四、易购线上对比情况</h2>
+        </div>
+        <!--营销策略分析-->
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>营销策略分析【注：活动包含三零分期和购物贷电子券】</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div id="otfChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="omarketingChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--构成分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>构成分析&nbsp;&nbsp;</h5>
+                <span class="label label-primary">品类客单人数</span>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>品类 </th>
+                                    <th>投放金额</th>
+                                    <th>增长率</th>
+                                    <th>客单价</th>
+                                    <th>增长率</th>
+                                    <th>投放人数</th>
+                                    <th>增长率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" >
+                        <div id="ocircleChart"  class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--构成分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>客群构成分析&nbsp;&nbsp;</h5>
+                <span class="label label-primary"></span>
+            </div>
+            <div class="ibox-content" style="padding-top: 20px;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div id="ocustSTLChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="ocustGCChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 20px;">
+                    <div class="col-lg-12" >
+                        <div id="ocustQDChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--新老客户分析-->
+        <div class="row">
+            <div class="col-lg-6" >
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>新客户&nbsp;&nbsp;</h5>
+                        <span class="label label-primary">123213</span>
+                        <span class="label label-primary">增长80%</span>
+                        <div class="ibox-tools">
+                            <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal6">?</a>-->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>品类 </th>
+                                    <th>投放金额</th>
+                                    <th>增长率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" >
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>老客户&nbsp;&nbsp;</h5>
+                        <span class="label label-primary">123213</span>
+                        <span class="label label-primary">增长80%</span>
+                        <div class="ibox-tools">
+                            <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal6">?</a>-->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>品类 </th>
+                                    <th>投放金额</th>
+                                    <th>增长率</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                <tr><td>北京</td><td>50%</td><td>50%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--营销能力分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>营销能力分析</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>品类 </th>
+                            <th>投放金额</th>
+                            <th>对比期金额</th>
+                            <th>增长</th>
+                            <th>实际渗透率</th>
+                            <th>对比期实际<th>
+                            <th>增长</th>
+                            <th>可达渗透率</th>
+                            <th>对比期可达</th>
+                            <th>增长</th>
+                            <th>实际/可达</th>
+                            <th>对比期实际/可达</th>
+                            <th>增长</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--555555555555555555555555555-->
+        <!-- 目录5 第三方对比情况  -->
+        <div class="row  white-bg page-heading">
+            <h2>五、第三方对比情况</h2>
+        </div>
+        <!--产品明细-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>产品明细</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>产品明细 </th>
+                            <th>投放金额</th>
+                            <th>对比期金额</th>
+                            <th>增长率</th>
+                            <th>投放人数</th>
+                            <th>对比期人数<th>
+                            <th>增长率</th>
+                            <th>客单价</th>
+                            <th>对比期客单价</th>
+                            <th>增长率</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>北京</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--666666666666666666666666666666666666666666-->
+        <!-- 目录6 随借随还对比情况  -->
+        <div class="row  white-bg page-heading">
+            <h2>六、随借随还对比情况</h2>
+        </div>
+
+        <!--营销策略分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>营销策略分析&nbsp;&nbsp;</h5>
+                <span class="label label-primary"></span>
+            </div>
+            <div class="ibox-content" style="padding-top: 20px;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div id="tfjeChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="tfrsChart" class="normal-chart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--客群分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>客群分析</h5>
+                <div class="ibox-tools">
+                    <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal6">?</a>-->
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="sortable-list connectList agile-list ui-sortable" style="margin-top: 14px;">
+                            <li class="warning-element" id="task1" style="background:#fff">
+                                新客户：23543
+                                <div class="stat-percent font-bold text-info">增长20% <i class="fa fa-level-up"></i></div>
+                            </li>
+                            <li class="success-element" id="task2" style="background:#fff">
+                                老客户：23543
+                                <div class="stat-percent font-bold text-info">增长20% <i class="fa fa-level-up"></i></div>
+                            </li>
+                            <li class="info-element" id="task3" style="background:#fff">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>维度 </th>
+                                            <th>新客户占比</th>
+                                            <th>老客户占比</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        <tr><td>查询期</td><td>50%</td><td>50%</td></tr>
+                                        <tr><td>对比期</td><td>50%</td><td>50%</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="xlkhChart" class="normal-chart">
+                            <!--新老客户对比-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div id="rygcChart" class="normal-chart">
+                            <!--人员构成-->
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="fyghylyChart" class="normal-chart">
+                            <!--非易购会员来源渠道-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--C、额度影响-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>额度影响</h5>
+                <div class="ibox-tools">
+                    <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal7">?</a>-->
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row margin-top-20">
+                    <div class="normal-chart" id="gedsyrsChart">
+                        <!--各额度使用人数对比-->
+                    </div>
+                </div>
+
+                <div class="row margin-top-20">
+                    <div class="normal-chart" id="gedrjtfChart">
+                        <!--各额度人均投放金额对比-->
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="normal-chart" id="gedsylChart">
+                        <!--各额度用户使用率分析-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--营销活动明细-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>营销活动明细</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>活动名称</th>
+                            <th>使用张数</th>
+                            <th>贷款金额（元）</th>
+                            <th>应收手续费（元）</th>
+                            <th>券优惠手续费（元）</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--77777777777777777777777777777777777-->
+        <!-- 目录7 现金分期对比情况  -->
+        <div class="row  white-bg page-heading">
+            <h2>七、现金分期对比情况</h2>
+        </div>
+
+        <!--营销策略分析-->
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>营销策略分析</h5>
+            </div>
+            <div class="ibox-content">
+                <div id="cmarketingChart" class="normal-chart">
+
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--构成分析-客单分析-->
+        <div class="ibox" >
+            <div class="ibox-title">
+                <h5>构成分析-客单分析</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>天数 </th>
+                            <th>投放金额</th>
+                            <th>对比期金额</th>
+                            <th>增长率</th>
+
+                            <th>客单价</th>
+                            <th>对比期客单价</th>
+                            <th>增长率</th>
+
+                            <th>投放人数</th>
+                            <th>对比期人数</th>
+                            <th>增长率</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td><td>50%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--客群分析-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>客群分析</h5>
+                <div class="ibox-tools">
+                    <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal6">?</a>-->
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <ul class="sortable-list connectList agile-list ui-sortable" style="margin-top: 14px;">
+                            <li class="warning-element"  style="background:#fff">
+                                新客户：23543
+                                <div class="stat-percent font-bold text-info">增长20% <i class="fa fa-level-up"></i></div>
+                            </li>
+                            <li class="success-element"  style="background:#fff">
+                                老客户：23543
+                                <div class="stat-percent font-bold text-info">增长20% <i class="fa fa-level-up"></i></div>
+                            </li>
+                            <li class="info-element"  style="background:#fff">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>维度 </th>
+                                            <th>新客户占比</th>
+                                            <th>老客户占比</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        <tr><td>查询期</td><td>50%</td><td>50%</td></tr>
+                                        <tr><td>对比期</td><td>50%</td><td>50%</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div id="cxlkhChart" class="normal-chart">
+                            <!--新老客户对比-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div id="crygcChart" class="normal-chart">
+                            <!--人员构成-->
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="cfyghylyChart" class="normal-chart">
+                            <!--非易购会员来源渠道-->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+        <!--C、额度影响-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>额度影响</h5>
+                <div class="ibox-tools">
+                    <!--<a href="javascript:void(0);" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal7">?</a>-->
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row margin-top-20">
+                    <div class="normal-chart" id="cgedsyrsChart">
+                        <!--各额度使用人数对比-->
+                    </div>
+                </div>
+
+                <div class="row margin-top-20">
+                    <div class="normal-chart" id="cgedrjtfChart">
+                        <!--各额度人均投放金额对比-->
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="normal-chart" id="cgedsylChart">
+                        <!--各额度用户使用率分析-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+
+        <!--营销活动明细-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>营销活动明细</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>活动名称</th>
+                            <th>使用张数</th>
+                            <th>贷款金额（元）</th>
+                            <th>应收手续费（元）</th>
+                            <th>券优惠手续费（元）</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        <tr><td>北京</td><td>50%</td><td>50%</td><td>北京</td><td>50%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--结论-->
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>结论：</h5>
+            </div>
+            <div class="ibox-content">
+                <textarea class="form-control" ></textarea>
+            </div>
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../js/inspinia.js"></script>
+    <!--<script src="../js/plugins/pace/pace.min.js"></script>-->
+
+    <!-- iCheck -->
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Ladda -->
+    <script src="../js/plugins/ladda/spin.min.js"></script>
+    <script src="../js/plugins/ladda/ladda.min.js"></script>
+    <script src="../js/plugins/ladda/ladda.jquery.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Steps -->
+    <script src="../js/plugins/steps/jquery.steps.js"></script>
+    <!-- echarts -->
+    <script src="../js/plugins/echarts/echarts.js"></script>
+    <script src="../js/lib/jquery.page.js"></script>
+    <!-- Jquery Validate -->
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/smart/myChart.js"></script>
+</body>
+<script>
+    $(document).ready(function(){
+        rateInit(true);
+        totalLendInit(true);
+        easybuyStoreInit(true);
+        easybuyOnlineInit(true);
+        thirdPartyInit(true);
+        anytimeLendPayment(true);
+        cashInstallments(true);
+    });
+
+</script>
+</html>
+
+

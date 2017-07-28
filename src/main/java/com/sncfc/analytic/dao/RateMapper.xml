@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sncfc.analytic.dao.RateMapper">
+
+    <resultMap id="rate" type="com.sncfc.analytic.pojo.Rate">  </resultMap>
+
+    <select id="queryRates" resultMap="rate">
+       SELECT * FROM CFC_DM.TDM_IA_MAN_KPI_D ORDER BY KPI_CODE
+    </select>
+
+    <update id="updateRate" >
+       UPDATE CFC_DM.TDM_IA_MAN_KPI_D
+        <set>
+            <if test="weight != null">
+                WEIGHT = #{weight},
+            </if>
+            <if test="kpiUp != null">
+                KPI_UP = #{kpiUp},
+            </if>
+            <if test="kpiDown != null">
+                KPI_DOWN = #{kpiDown}
+            </if>
+        </set>
+       WHERE KPI_CODE = #{kpiCode}
+    </update>
+
+</mapper>

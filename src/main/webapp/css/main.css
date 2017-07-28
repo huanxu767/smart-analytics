@@ -1,0 +1,61 @@
+.page-no{
+    width: 20px;
+    padding: 0 10px;
+}
+.m-pagination{
+    margin-top: 10px;
+    float: right;
+}
+.page_button{
+    /* width: 82px; */
+    color: #6bbde5;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    /* margin-left: 20px; */
+    /*border: 1px solid #6bbde5;*/
+}
+.tcdPageCode{padding: 15px 20px;text-align: left;color: #ccc;}
+.tcdPageCode a{display: inline-block;color: #6bbde5;display: inline-block;height: 25px;	line-height: 25px;	padding: 0 10px;border: 1px solid #ddd;	margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode a:hover{text-decoration: none;border: 1px solid #6bbde5;}
+.tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: #fff;background-color: #6bbde5;	border: 1px solid #6bbde5;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode span.disabled{	display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;	color: #bfbfbf;background: #f2f2f2;border: 1px solid #bfbfbf;border-radius: 4px;vertical-align: middle;}
+
+
+.my-page-heading {
+    border-top: 0;
+    padding:10px;
+}
+
+.tab_close{
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    cursor: pointer;
+    color: #A7B1C2;
+}
+.tab_close:hover{
+    color: #555;
+}
+
+
+.td-width-150{
+    width: 150px;
+}
+.padding-left-0{
+    padding-left: 0;
+}
+.text-align-left{
+    text-align: left;
+}
+.my-wrapper{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.my-ibox-title{
+    border-top:0 ;
+}
+
+.form-control.error{
+    border: 1px solid #e5e6e7;
+}

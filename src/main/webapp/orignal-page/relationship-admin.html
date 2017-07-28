@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏宁公司-消金大区关系</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <!-- Toastr style -->
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
+    <link href="../css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="../css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+
+    <style>
+    </style>
+</head>
+
+
+<body style="background-color: transparent;">
+
+
+<div class="wrapper my-wrapper ">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox my-ibox">
+                <div class="ibox-content">
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label" for="">苏宁公司编号</label>
+                                <input type="text"  name="quantity" value=""  class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label" for="">苏宁公司名称</label>
+                                <input type="text"  name="quantity" value=""  class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label" for="">消金大区名称</label>
+                                <input type="text"  name="quantity" value=""  class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label class="control-label" for="">消金大区名称</label>
+                                <input type="text"  name="quantity" value=""  class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 " >
+                            <div  style="padding-top: 25px;">
+                            <button type="button" class="btn btn-w-m btn-primary btn-sm" id="searchButton">查询</button>
+                            <button type="button" class="btn btn-w-m btn-default btn-sm" id="">新增</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>苏宁公司编号</th>
+                                <th>苏宁公司名称</th>
+                                <th>消金公司编号</th>
+                                <th>消金公司名称</th>
+                                <th>生效时间</th>
+                                <th>创建时间</th>
+                                <th style="width: 100px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="loggerList">
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>123123123</td>
+                                <td>苏宁公司名称</td>
+                                <td>123123123123</td>
+                                <td>消金公司名称</td>
+                                <td>2017-01-01 至 2017-02-02</td>
+                                <td>2015-12-21</td>
+                                <td>
+                                    <button class="btn btn-default btn-outline btn-xs" data="100005" onclick="modify(this)" type="button"><i class="fa fa-edit"></i> &nbsp;修改</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="8" class="footable-visible">
+                                    <div class="tcdPageCode m-pagination"><span class="disabled">上一页</span><span class="current">1</span><a href="javascript:;" class="tcdNumber">2</a><a href="javascript:;" class="tcdNumber">3</a><a href="javascript:;" class="tcdNumber">4</a><span>...</span><a href="javascript:;" class="tcdNumber">50</a><a href="javascript:;" class="nextPage">下一页</a></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox " style="margin-bottom: 0;">
+                            <!--<div class="ibox-title">-->
+                            <!--<h5>修改权重</h5>-->
+                            <!--</div>-->
+                            <div class="ibox-content" style="padding-bottom: 0;">
+                                <form method="post" class="form-horizontal" id="jobForm" novalidate="novalidate">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">苏宁公司编号</label>
+                                        <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">苏宁公司名称</label>
+                                        <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">消金公司编号</label>
+                                        <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">消金公司名称</label>
+                                        <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">生效开始时间</label>
+                                        <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">生效结束时间</label>
+                                        <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="col-sm-4 col-sm-offset-8">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                        <button type="button" class="btn btn-primary" onclick="save()">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Mainly scripts -->
+<script src="../js/jquery-3.1.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../js/inspinia.js"></script>
+<!--<script src="../js/plugins/pace/pace.min.js"></script>-->
+
+<!-- iCheck -->
+<script src="../js/plugins/iCheck/icheck.min.js"></script>
+<!-- Ladda -->
+<script src="../js/plugins/ladda/spin.min.js"></script>
+<script src="../js/plugins/ladda/ladda.min.js"></script>
+<script src="../js/plugins/ladda/ladda.jquery.min.js"></script>
+<!-- Sweet alert -->
+<script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- Steps -->
+<script src="../js/plugins/steps/jquery.steps.js"></script>
+<script src="../js/lib/jquery.page.js"></script>
+<!-- Jquery Validate -->
+<script src="../js/plugins/validate/jquery.validate.min.js"></script>
+
+</body>
+<script>
+
+
+    function detail(obj){
+//        initWizard();
+        $('#myModal5').modal();
+//        window.parent.toastrSuccess("运动");
+    }
+
+    function modify(obj){
+        $('#myModal5').modal();
+    }
+
+
+</script>
+</html>
+
+

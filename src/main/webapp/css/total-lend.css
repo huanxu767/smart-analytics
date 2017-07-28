@@ -1,0 +1,436 @@
+/*产品情况-------------------------产品情况 begin */
+/*my-box begin*/
+.product-container{
+    max-width: 1200px;
+    height: 886px;
+    /*background-color: #e6e6e6;*/
+    margin: 0 auto;
+    position: relative;
+    overflow: auto;
+}
+.my-box{
+    width: 200px;
+    /*margin-top: 40px;*/
+    position: absolute;
+}
+.my-long-box{
+    width: 400px;
+    /*margin-top: 40px;*/
+    position: absolute;
+}
+.my-box-title{
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    background-color: #f8ac59;
+    color: #fff;
+    font-size: 15px;
+}
+.my-box-content{
+    height: 46px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.my-box-content>div{
+    float:left ;
+    height: 100%;
+    box-sizing: border-box;
+}
+.width-50>div{
+    width: 50%;
+}
+.width-25>div{
+    width: 25%;
+}
+.width-100>div{
+    width: 100%;
+}
+.width-33>div{
+    width: 33.3333333333%;
+}
+.my-box-content>div:not(:last-child){
+    border-right:1px solid #ddd;
+}
+.my-box-content p{
+    text-align: center;
+    margin: 0;
+    height: 23px;
+    line-height: 23px;
+}
+/*连接线*/
+.connect-line{
+    height: 40px;
+    position: absolute;
+}
+.connect-line-top{
+    height: 20px;
+    position: absolute;
+    width: 1px;
+    border-right:1px solid #f8ac59;
+}
+.connect-line-hen{
+    display: block;
+    height: 1px;
+    border-top:1px solid #f8ac59;
+    width: 100%;
+    position: absolute;
+    top:20px;
+}
+.triangle-down-box{
+    position: absolute;
+    text-align: center;
+    top: 20px;
+}
+.left-triangle{
+    left: -6px;
+}
+.right-triangle{
+    right: -6px;
+}
+.shu-line{
+    width: 1px;
+    height: 10px;
+    border-right:1px solid #f8ac59;
+    margin: 0 auto;
+}
+.triangle-up {
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 12px solid #f8ac59;
+}
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 12px solid #f8ac59;
+}
+
+.triangle-left {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-right: 12px solid #f8ac59;
+    border-bottom: 6px solid transparent;
+}
+.triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-left: 12px solid #f8ac59;
+    border-bottom: 6px solid transparent;
+}
+/*第一层*/
+.ztf-position{
+    left: 550px;
+}
+/*第二层*/
+.gwd-position{
+    top: 224px;
+    left: 355px;
+}
+.xjd-position{
+    top: 224px;
+    left: 753px;
+}
+/*第三层*/
+.ygzt-position{
+    top: 448px;
+    left: 40px;
+}
+.dsf-position{
+    top: 448px;
+    left: 480px;
+}
+.sjsh-position{
+    top: 448px;
+    left: 720px;
+}
+.xjfq-position{
+    top: 448px;
+    left: 960px;
+}
+/*第四层*/
+.ygmd-position{
+    top: 670px;
+    left: 10px;
+}
+.ygxs-position{
+    top: 670px;
+    left: 280px;
+}
+/*线 第一层*/
+.one-two{
+    top: 184px;
+    left: 453px;
+    width:400px;
+}
+.one-two-top{
+    left: 196px;
+}
+/*线 第二层*/
+.two-three{
+    top: 408px;
+    left: 241px;
+    width: 340px;
+}
+.two-three-top{
+    left: 213px;
+
+}
+.two-three-right{
+     top: 408px;
+     left: 815px;
+     width: 240px;
+ }
+.two-three-right-top{
+    left: 37px;
+}
+.four{
+    top: 631px;
+    left: 111px;
+    width: 270px;
+}
+.four-top{
+    left: 128px;
+}
+/*my-box end*/
+/*产品情况------------------------- end */
+
+/*客户渗透率图标------------------------- begin */
+#custGroupChart{
+    height: 300px;
+}
+/*客户渗透率图标------------------------- end */
+
+/*新客户------------------------- begin */
+#custGroupChart{
+    height: 300px;
+}
+/*新客户------------------------- begin */
+.ktcg-khs-position{
+    top: 107px;
+    left: 634px;
+}
+.sqkt-khs-position{
+    top: 186px;
+    left: 500px;
+}
+.zdkt-khs-position{
+    top: 186px;
+    left: 700px;
+}
+.ysxyh-khs-position{
+    top: 212px;
+    left: 290px;
+}
+.sqcg-khs-position{
+    top: 0px;
+    left: 290px;
+}
+.sqyh-khs-position{
+    top: 0px;
+    left: 0px;
+}
+
+.line{
+    height: 1px;
+    border-top:1px solid #f8ac59;
+    position: absolute;
+}
+/*向上箭头*/
+.up-zx-triangle{
+    /*height: 22px;*/
+    width: 12px;
+    position: absolute;
+    /*background: #0a568c;*/
+}
+.s-line{
+    width: 1px;
+    border-right:1px solid #f8ac59;
+    position: absolute;
+    top: 0;
+    left: 6px;
+    height: 25px;
+}
+.h-line{
+    height: 1px;
+    box-sizing: border-box;
+    border-top: 1px solid #f8ac59;
+    position: absolute;
+}
+.line-1{
+    top: 115px;
+    left: 159px;
+    width: 881px;
+}
+.line-2{
+    top: 91px;
+    left: 153px;
+    height: 10px;
+}
+.line-3{
+    top: 91px;
+    left: 373px;
+    height: 10px;
+}
+.line-4{
+    top: 91px;
+    left: 593px;
+    height: 10px;
+}
+.line-5{
+    top: 91px;
+    left: 813px;
+    height: 10px;
+}
+.line-6{
+    top: 91px;
+    left: 1033px;
+    height: 10px;
+}
+.line-7{
+    top: 114px;
+    left: 599px;
+    height: 18px;
+}
+.line-8{
+    top: 269px;
+    left: 593px;
+}
+.line-8 .s-line{
+    height: 35px;
+}
+.left-zhe-triangle{
+    position: absolute;
+}
+.line-9{
+    top: 30px;
+    left: 700px;
+}
+.line-9 .h-line{
+    width: 89px;
+    top: 6px;
+    left: 12px;
+}
+.line-9 .s-line{
+    height: 151px;
+    left: 100px;
+    top: 6px;
+}
+
+.line-10{
+    top: 30px;
+    left: 400px;
+}
+.line-10 .h-line{
+    width: 89px;
+    top: 6px;
+    left: 0px;
+}
+.line-10 .triangle-right{
+    left: 88px;
+    position: absolute;
+}
+.line-10 .s-line{
+    height: 151px;
+    left: 0px;
+    top: 6px;
+}
+
+.line-11{
+    top: 205px;
+    left: 499px;
+}
+.line-11 .h-line{
+    width: 89px;
+    top: 6px;
+    left: 12px;
+}
+.line-11 .s-line{
+    height: 153px;
+    left: 100px;
+    top: 6px;
+}
+
+
+.line-111{
+    top: 205px;
+    left: 499px;
+}
+.line-111 .h-line{
+    width: 89px;
+    top: 6px;
+    left: 101px;
+}
+.line-111 .triangle-right{
+    left: 190px;
+    position: absolute;
+}
+
+
+.line-12{
+    top: 72px;
+    left: 136px;
+}
+.line-12 .h-line{
+    width: 89px;
+    top: 6px;
+    left: 63px;
+}
+.line-12 .triangle-right{
+    left: 142px;
+    position: absolute;
+}
+.line-12 .s-line{
+    height: 153px;
+    left: 37px;
+    top: 6px;
+}
+.kuang-triangle{
+    position: absolute;
+}
+.kuang-triangle .h-line{
+    width: 60px;
+}
+
+.line-113{
+    top: 216px;
+}
+.line-112{
+    top: 72px;
+    left: 490px;
+}
+.s-line-kuang{
+    width: 1px;
+    border-right: 1px solid #f8ac59;
+    position: absolute;
+    top: 0;
+    left: 59px;
+    height: 216px;
+}
+.line-114{
+    top: 177px;
+    left: 537px;
+}
+
+.line-114 .h-line{
+    width: 82px;
+    top: 6px;
+    left: 12px;
+}
+.line-114 .triangle-right{
+    left: 86px;
+    position: absolute;
+}
+
+.cunliang span{
+    display: inline-block;
+    height: 46px;
+    line-height: 46px;
+    padding-left: 20px;
+}

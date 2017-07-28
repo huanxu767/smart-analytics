@@ -1,0 +1,9 @@
+.normal-chart{
+    height: 300px;
+}
+.form-control[readonly]{
+    background: #fff;
+}
+.margin-top-20{
+    margin-top: 20px;
+}

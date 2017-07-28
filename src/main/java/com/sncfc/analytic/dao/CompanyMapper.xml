@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sncfc.analytic.dao.CompanyMapper">
+
+    <resultMap id="centerCompany" type="com.sncfc.analytic.pojo.CenterCompany">  </resultMap>
+    <resultMap id="areaCompany" type="com.sncfc.analytic.pojo.AreaCompany">  </resultMap>
+    <!--总部-->
+    <sql id="queryCenterCompanySQL">
+        <if test="yearNum != null and yearNum != '' ">
+            YEAR_NUM = #{yearNum}
+        </if>
+        <if test="quarterNum != null and quarterNum != ''">
+            AND QUARTER_NUM = #{quarterNum}
+        </if>
+        <if test="notId != null and notId != ''">
+            AND ID != #{notId}
+        </if>
+    </sql>
+
+    <select id="queryCenterCompanies" resultMap="centerCompany">
+        SELECT * FROM CFC_DM.TDM_IA_MAN_HQ_D
+        <where>
+            <include refid="queryCenterCompanySQL"></include>
+        </where>
+        ORDER BY QUARTER_NUM ASC
+    </select>
+
+    <select id="countCenterCompany" resultType="int">
+        SELECT count(*) FROM CFC_DM.TDM_IA_MAN_HQ_D
+        <where>
+            <include refid="queryCenterCompanySQL"></include>
+        </where>
+    </select>
+
+    <update id="updateCenterCompany">
+        UPDATE CFC_DM.TDM_IA_MAN_HQ_D
+        SET AREA_CODE = #{areaCode}, AREA_NAME = #{areaName},YEAR_NUM= #{yearNum}, QUARTER_NUM= #{quarterNum},
+        LOAN_ALL =  #{loanAll}, LOAN_BUY = #{loanBuy},LOAN_CASH= #{loanCash},LOAN_SHOP= #{loanShop},
+        LOAN_ONLINE= #{loanOnline}, LOAN_OTHER= #{loanOther}, LOAN_ANY= #{loanAny},LOAN_INSTALL= #{loanInstall}
+        WHERE ID = #{id}
+    </update>
+
+    <insert id="insertCenterCompany" >
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT  cfc_rpt.seq_smart_analytics.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO CFC_DM.TDM_IA_MAN_HQ_D
+        (ID,AREA_CODE, AREA_NAME,YEAR_NUM, QUARTER_NUM, LOAN_ALL, LOAN_BUY,LOAN_CASH,LOAN_SHOP,
+        LOAN_ONLINE, LOAN_OTHER, LOAN_ANY,LOAN_INSTALL )
+        VALUES (#{id},#{areaCode}, #{areaName},#{yearNum}, #{quarterNum}, #{loanAll}, #{loanBuy},#{loanCash},#{loanShop},
+        #{loanOnline}, #{loanOther}, #{loanAny},#{loanInstall} )
+    </insert>
+
+    <!--大区-->
+    <sql id="queryAreaCompanySQL">
+        <if test="areaCode != null and areaCode != '' ">
+            AREA_CODE = #{areaCode}
+        </if>
+        <if test="yearNum != null and yearNum != '' ">
+            AND YEAR_NUM = #{yearNum}
+        </if>
+        <if test="quarterNum != null and quarterNum != ''">
+            AND QUARTER_NUM = #{quarterNum}
+        </if>
+        <if test="notId != null and notId != ''">
+            AND ID != #{notId}
+        </if>
+    </sql>
+
+    <select id="queryAreaCompanies" resultMap="areaCompany">
+        SELECT ID,AREA_CODE,AREA_NAME,YEAR_NUM,QUARTER_NUM,LOAN_SHOP/10000 LOAN_SHOP ,
+        LOAN_SHOP_NEWCUST/10000 LOAN_SHOP_NEWCUST,SHOP_NEWCUST,LOAN_CASH/10000 LOAN_CASH,LOAN_CASHSELF/10000 LOAN_CASHSELF,
+        CASHSELF_NEWCUST,LOAN_OTHER/10000 LOAN_OTHER,OTHER_NEWCUST,APP_CUST_NO
+        FROM CFC_DM.TDM_IA_MAN_AREA_D
+        <where>
+            <include refid="queryAreaCompanySQL"></include>
+        </where>
+        ORDER BY AREA_CODE,QUARTER_NUM
+    </select>
+
+    <insert id="insertAreaCompany">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT  cfc_rpt.seq_smart_analytics.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO CFC_DM.TDM_IA_MAN_AREA_D
+        ( ID,AREA_CODE,AREA_NAME,YEAR_NUM,QUARTER_NUM,LOAN_SHOP,
+        LOAN_SHOP_NEWCUST,SHOP_NEWCUST,LOAN_CASH,LOAN_CASHSELF,
+        CASHSELF_NEWCUST,LOAN_OTHER,OTHER_NEWCUST,APP_CUST_NO)
+        VALUES (#{id},#{areaCode},#{areaName},#{yearNum}, #{quarterNum},
+        #{loanShop}*10000, #{loanShopNewcust}*10000,#{shopNewcust}, #{loanCash}*10000,
+        #{loanCashself}*10000,#{cashselfNewcust}, #{loanOther}*10000,#{otherNewcust},#{appCustNo})
+    </insert>
+
+    <select id="countAreaCompany" resultType="int">
+        SELECT count(*) FROM CFC_DM.TDM_IA_MAN_AREA_D
+        <where>
+            <include refid="queryAreaCompanySQL"></include>
+        </where>
+    </select>
+
+    <update id="updateAreaCompany" >
+        UPDATE CFC_DM.TDM_IA_MAN_AREA_D
+        SET AREA_CODE = #{areaCode},AREA_NAME = #{areaName},YEAR_NUM = #{yearNum},QUARTER_NUM =  #{quarterNum},LOAN_SHOP = #{loanShop}*10000,
+        LOAN_SHOP_NEWCUST = #{loanShopNewcust}*10000,SHOP_NEWCUST = #{shopNewcust},LOAN_CASH = #{loanCash}*10000,LOAN_CASHSELF = #{loanCashself}*10000,
+        CASHSELF_NEWCUST = #{cashselfNewcust},LOAN_OTHER =  #{loanOther}*10000,OTHER_NEWCUST = #{otherNewcust},APP_CUST_NO = #{appCustNo}
+        WHERE ID = #{id}
+    </update>
+</mapper>

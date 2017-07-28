@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sncfc.analytic.dao.StoreAnalyticsMapper">
+
+
+    <select id="queryStoreLoanData" resultType="Map">
+        <![CDATA[
+        select 'chaxun' AS TP,cterm,IS_PROMOTION_FLAG,sum(LOAN_SHOP) AS LOAN_SHOP from cfc_dm.TDM_IA_LOAN_D
+          where statis_date >= #{beginDate} and statis_date <=#{endDate} and IS_YG = 0 group by cterm,IS_PROMOTION_FLAG
+        union all
+        select 'duibi' AS TP ,cterm,IS_PROMOTION_FLAG,sum(LOAN_SHOP) AS LOAN_SHOP from cfc_dm.TDM_IA_LOAN_D
+          where statis_date >= #{compareBeginDate} and statis_date <=#{compareEndDate} and IS_YG = 0 group by cterm,IS_PROMOTION_FLAG
+        ]]>
+    </select>
+
+    <select id="queryStoreDeptData" resultType="Map">
+        <![CDATA[
+        select a.dept_nm, a.querycnt, a.queryamt, b.comparecnt, b.compareamt
+          from (select dept_nm,
+                       count(distinct cust_id) as querycnt,
+                       sum(loan_amt) as queryamt
+                  from cfc_dm.TDM_IA_DEPT_D
+                 where IS_ONSH = 0 and statis_date >= #{beginDate}
+                   and statis_date <= #{endDate}
+                 group by dept_nm) a
+          left join (select dept_nm,
+                            count(distinct cust_id) as comparecnt,
+                            sum(loan_amt) as compareamt
+                       from cfc_dm.TDM_IA_DEPT_D
+                      where IS_ONSH = 0 and statis_date >= #{compareBeginDate}
+                        and statis_date <= #{compareEndDate}
+                      group by dept_nm) b
+            on a.dept_nm = b.dept_nm
+        ]]>
+    </select>
+
+    <select id="queryYgLoanCnt" resultType="Map">
+        <![CDATA[
+        select *
+          from (select count(distinct CUST_RXFYG) as cx_rxfyg,
+                       count(distinct CUST_YGRXF) as cx_ygrxf,
+                       count(distinct CUST_YG) as cx_yg
+                  from cfc_dm.TDM_IA_PERMEABILITY_D
+                 where FLAG = 1 and statis_date >= #{beginDate}
+                   and statis_date <= #{endDate}) a,
+               (select count(distinct CUST_RXFYG) as db_rxfyg,
+                       count(distinct CUST_YGRXF) as db_ygrxf,
+                       count(distinct CUST_YG) as db_yg
+                  from cfc_dm.TDM_IA_PERMEABILITY_D
+                 where FLAG = 1 and statis_date >= #{compareBeginDate}
+                   and statis_date <= #{compareEndDate}) b
+        ]]>
+    </select>
+
+    <select id="queryStoreEmpCnt" resultType="Map">
+        <![CDATA[
+          select a.yg_staff, a.cnt as querycnt, b.cnt as comparecnt
+              from (select count(distinct LOAN_SHOP_CUST) as cnt, YG_STAFF
+                      from cfc_dm.TDM_IA_LOAN_D
+                     where IS_YG = 0
+                       and statis_date >= #{beginDate}
+                       and statis_date <= #{endDate}
+                     group by YG_STAFF) a
+              left join (select count(distinct LOAN_SHOP_CUST) as cnt, YG_STAFF
+                           from cfc_dm.TDM_IA_LOAN_D
+                          where IS_YG = 0
+                            and statis_date >= #{compareBeginDate}
+                            and statis_date <= #{compareEndDate}
+                          group by YG_STAFF) b
+                on a.yg_staff = b.yg_staff
+        ]]>
+    </select>
+
+    <select id="queryNotYgDataCntByChannel" resultType="Map">
+        <![CDATA[
+          select a.cust_chnl, a.cnt as querycnt, b.cnt as comparecnt
+              from (select count(distinct LOAN_SHOP_CUST) as cnt, CUST_CHNL
+                      from cfc_dm.TDM_IA_LOAN_D
+                     where IS_YG = 0
+                       and YG_STAFF = 0
+                       and statis_date >= #{beginDate}
+                       and statis_date <= #{endDate}
+                     group by CUST_CHNL) a
+              left join (select count(distinct LOAN_SHOP_CUST) as cnt, CUST_CHNL
+                           from cfc_dm.TDM_IA_LOAN_D
+                          where IS_YG = 0
+                            and YG_STAFF = 0
+                            and statis_date >= #{compareBeginDate}
+                            and statis_date <= #{compareEndDate}
+                          group by CUST_CHNL) b
+                on a.cust_chnl = b.cust_chnl
+        ]]>
+    </select>
+
+    <select id="queryNewOrOldCustomDataByChannel" resultType="Map">
+          select a.cust_chnl,a.IS_NEW_FLAG as ISNEW, a.cnt as querycnt, b.cnt as comparecnt
+              from (select count(distinct LOAN_SHOP_CUST) as cnt, CUST_CHNL,IS_NEW_FLAG
+                      from cfc_dm.TDM_IA_LOAN_D
+                     where IS_YG = 0
+                       and statis_date &gt;= #{beginDate}
+                       and statis_date &lt;= #{endDate}
+                     group by CUST_CHNL,IS_NEW_FLAG) a
+              left join (select count(distinct LOAN_SHOP_CUST) as cnt, CUST_CHNL,IS_NEW_FLAG
+                           from cfc_dm.TDM_IA_LOAN_D
+                          where IS_YG = 0
+                            and statis_date &gt;= #{compareBeginDate}
+                            and statis_date &lt;= #{compareEndDate}
+                          group by CUST_CHNL,IS_NEW_FLAG) b
+                on a.cust_chnl = b.cust_chnl and a.IS_NEW_FLAG=b.IS_NEW_FLAG
+    </select>
+
+
+    <select id="queryLoanDataByDept" resultType="Map">
+        <![CDATA[
+          select a.dept_nm,
+               a.BAL_AMT     as query_BAL_AMT,
+               a.CFC_PAY_AMT as query_CFC_PAY_AMT,
+               a.PAY_AMT     as query_PAY_AMT,
+               b.BAL_AMT     as compare_BAL_AMT,
+               b.CFC_PAY_AMT as compare_CFC_PAY_AMT,
+               b.PAY_AMT     as compare_PAY_AMT
+          from (select DEPT_NM,
+                       sum(BAL_AMT) as BAL_AMT,
+                       sum(CFC_PAY_AMT) as CFC_PAY_AMT,
+                       sum(PAY_AMT) as PAY_AMT
+                  from cfc_dm.TDM_IA_PERMEABILITY_D
+                 where FLAG = 1 and statis_date >= #{beginDate}
+                   and statis_date <= #{endDate}
+                 group by DEPT_NM) a
+          left join (select DEPT_NM,
+                            sum(BAL_AMT) as BAL_AMT,
+                            sum(CFC_PAY_AMT) as CFC_PAY_AMT,
+                            sum(PAY_AMT) as PAY_AMT
+                       from cfc_dm.TDM_IA_PERMEABILITY_D
+                      where FLAG = 1 and statis_date >= #{compareBeginDate}
+                        and statis_date <= #{compareEndDate}
+                      group by DEPT_NM) b
+            on a.dept_nm = b.dept_nm
+        ]]>
+    </select>
+
+</mapper>

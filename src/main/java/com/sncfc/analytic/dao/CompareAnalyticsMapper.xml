@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sncfc.analytic.dao.CompareAnalyticsMapper">
+
+    <select id="querytdmhqd" resultType="Map">
+        <![CDATA[
+        SELECT SUM(LOAN_ALL) 总投放,SUM(LOAN_BUY) 购物贷,SUM(LOAN_CASH) 现金贷,SUM(LOAN_SHOP) 门店购物贷,
+        SUM(LOAN_ONLINE) 线上购物贷,SUM(LOAN_OTHER) 第三方,SUM(LOAN_ANY) 随借随还,SUM(LOAN_INSTALL) 现金分期
+        FROM CFC_DM.TDM_IA_HQ_D
+        WHERE YEAR_NUM = #{yearNum} AND QUARTER_NUM <= #{quarterNum}
+        ]]>
+    </select>
+
+    <select id="queryCenterTargetConfig" resultType="Map">
+        <![CDATA[
+        SELECT SUM(LOAN_ALL) 总投放,SUM(LOAN_BUY) 购物贷,SUM(LOAN_CASH) 现金贷,SUM(LOAN_SHOP) 门店购物贷,
+        SUM(LOAN_ONLINE) 线上购物贷,SUM(LOAN_OTHER) 第三方,SUM(LOAN_ANY) 随借随还,SUM(LOAN_INSTALL) 现金分期
+        FROM  CFC_DM.TDM_IA_MAN_HQ_D WHERE YEAR_NUM =  #{yearNum} AND QUARTER_NUM <= #{quarterNum}
+         ]]>
+    </select>
+
+    <select id="queryThirdParty" resultType="Map">
+        <![CDATA[
+        SELECT PRODID_OTHER,round(SUM(LOAN_ALL)/10000,1) TFJE,COUNT(DISTINCT(LOAN_ALL_CUST)) TFRS ,round(SUM(LOAN_ALL)/COUNT(DISTINCT(LOAN_ALL_CUST)),1) KDJ
+        FROM CFC_DM.TDM_IA_LOAN_D
+        WHERE PRODID_OTHER IS NOT NULL
+          AND STATIS_DATE>=#{beginDate} AND STATIS_DATE<=#{endDate}
+        GROUP BY PRODID_OTHER
+        ]]>
+    </select>
+
+
+
+    <select id="queryTotalLendProduct"  resultType="Map">
+      select
+      nvl(sum(LOAN_ALL),0) LOAN_ALL,
+      count(distinct(LOAN_ALL_CUST))  LOAN_ALL_CUST,
+      nvl(sum(LOAN_BUY),0) LOAN_BUY,
+      count(distinct(LOAN_BUY_CUST)) LOAN_BUY_CUST,
+      nvl(sum(LOAN_CASH),0) LOAN_CASH,
+      count(distinct(LOAN_CASH_CUST)) LOAN_CASH_CUST,
+      nvl(sum(AMOUT_YG),0) AMOUT_YG,
+      count(distinct(LOAN_SHOPE_CUST)) AMOUT_YG_CUST,
+      nvl(sum(LOAN_OTHER),0) LOAN_OTHER,
+      count(distinct(LOAN_OTHER_CUST)) LOAN_OTHER_CUST,
+      nvl(sum(LOAN_ANY),0) LOAN_ANY,
+      count(distinct(LOAN_ANY_CUST)) LOAN_ANY_CUST,
+      nvl(sum(LOAN_INSTALL),0) LOAN_INSTALL,
+      count(distinct(LOAN_INSTALL_CUST)) LOAN_INSTALL_CUST,
+      nvl(sum(LOAN_SHOP),0) LOAN_SHOP,
+      count(distinct(LOAN_SHOP_CUST)) LOAN_SHOP_CUST,
+      nvl(sum(LOAN_ONLINE),0) LOAN_ONLINE,
+      count(distinct(LOAN_ONLINE_CUST)) LOAN_ONLINE_CUST,
+       nvl(sum(LOAN_RXFSN),0) LOAN_RXFSN,
+       nvl(sum(LOAN_RXFCUST),0) LOAN_RXFCUST
+        from CFC_DM.TDM_IA_LOAN_D
+        WHERE STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+    </select>
+
+    <select id="queryTotalLend"  resultType="Map">
+        with a as(
+            select  nvl(sum(LOAN_ALL),0) total_amt,
+              count(distinct(LOAN_ALL_CUST))  total_LOAN_ALL_CUST
+            from CFC_DM.TDM_IA_LOAN_D
+            where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        )
+        SELECT * from(
+            select
+              nvl(sum(LOAN_ALL),0) LOAN_ALL,
+              count(distinct(LOAN_ALL_CUST))  LOAN_ALL_CUST,
+              nvl(sum(LOAN_BUY),0) LOAN_BUY,
+              count(distinct(LOAN_BUY_CUST)) LOAN_BUY_CUST,
+              nvl(sum(AMOUT_YG),0) AMOUT_YG,
+              count(distinct(LOAN_SHOPE_CUST)) LOAN_SHOPE_CUST,
+              nvl(sum(LOAN_SHOP),0) LOAN_SHOP,
+              count(distinct(LOAN_SHOP_CUST)) LOAN_SHOP_CUST,
+              nvl(sum(LOAN_ONLINE),0) LOAN_ONLINE,
+              count(distinct(LOAN_ONLINE_CUST)) LOAN_ONLINE_CUST,
+              nvl(sum(LOAN_OTHER),0) LOAN_OTHER,
+              count(distinct(LOAN_OTHER_CUST)) LOAN_OTHER_CUST,
+              nvl(sum(LOAN_CASH),0) LOAN_CASH,
+              count(distinct(LOAN_CASH_CUST)) LOAN_CASH_CUST,
+              nvl(sum(LOAN_ANY),0) LOAN_ANY,
+              count(distinct(LOAN_ANY_CUST)) LOAN_ANY_CUST,
+              nvl(sum(LOAN_INSTALL),0) LOAN_INSTALL,
+              count(distinct(LOAN_INSTALL_CUST)) LOAN_INSTALL_CUST
+            from CFC_DM.TDM_IA_LOAN_D
+            WHERE STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate} AND IS_NEW_FLAG = #{isNewFlag}
+            ),a
+    </select>
+
+    <!--总投放计算-->
+    <sql id="queryTotalLendSQL">
+select
+          nvl(sum(LOAN_ALL),0) LOAN_ALL,
+          count(distinct(LOAN_ALL_CUST))  LOAN_ALL_CUST,
+          case count(distinct(LOAN_ALL_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_ALL),0) / count(distinct(LOAN_ALL_CUST)),2) end LOAN_ALL_KDJ,
+          nvl(sum(LOAN_BUY),0) LOAN_BUY,
+          count(distinct(LOAN_BUY_CUST)) LOAN_BUY_CUST,
+            case count(distinct(LOAN_BUY_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_BUY),0) / count(distinct(LOAN_BUY_CUST)),2) end LOAN_BUY_KDJ,
+          nvl(sum(AMOUT_YG),0) AMOUT_YG,
+          count(distinct(LOAN_SHOPE_CUST)) LOAN_SHOPE_CUST,
+              case count(distinct(LOAN_SHOPE_CUST)) when 0 then 0 else  round(nvl(sum(AMOUT_YG),0) / count(distinct(LOAN_SHOPE_CUST)),2) end AMOUT_YG_KDJ,
+          nvl(sum(LOAN_SHOP),0) LOAN_SHOP,
+          count(distinct(LOAN_SHOP_CUST)) LOAN_SHOP_CUST,
+          case count(distinct(LOAN_SHOP_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_SHOP),0) / count(distinct(LOAN_SHOP_CUST)),2) end LOAN_SHOP_KDJ,
+          nvl(sum(LOAN_ONLINE),0) LOAN_ONLINE,
+          count(distinct(LOAN_ONLINE_CUST)) LOAN_ONLINE_CUST,
+          case count(distinct(LOAN_ONLINE_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_ONLINE),0) / count(distinct(LOAN_ONLINE_CUST)),2) end LOAN_ONLINE_KDJ,
+          nvl(sum(LOAN_OTHER),0) LOAN_OTHER,
+          count(distinct(LOAN_OTHER_CUST)) LOAN_OTHER_CUST,
+          case count(distinct(LOAN_OTHER_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_OTHER),0) / count(distinct(LOAN_OTHER_CUST)),2) end LOAN_OTHER_KDJ,
+          nvl(sum(LOAN_CASH),0) LOAN_CASH,
+          count(distinct(LOAN_CASH_CUST)) LOAN_CASH_CUST,
+            case count(distinct(LOAN_CASH_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_CASH),0) / count(distinct(LOAN_CASH_CUST)),2) end LOAN_CASH_KDJ,
+          nvl(sum(LOAN_ANY),0) LOAN_ANY,
+          count(distinct(LOAN_ANY_CUST)) LOAN_ANY_CUST,
+              case count(distinct(LOAN_ANY_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_ANY),0) / count(distinct(LOAN_ANY_CUST)),2) end LOAN_ANY_KDJ,
+          nvl(sum(LOAN_INSTALL),0) LOAN_INSTALL,
+          count(distinct(LOAN_INSTALL_CUST)) LOAN_INSTALL_CUST,
+         case count(distinct(LOAN_INSTALL_CUST)) when 0 then 0 else  round(nvl(sum(LOAN_INSTALL),0) / count(distinct(LOAN_INSTALL_CUST)),2) end LOAN_INSTALL_KDJ,
+        case nvl(sum(LOAN_RXFSN),0) when 0 then '-' else  to_char(round(nvl(sum(AMOUT_YG),0)/nvl(sum(LOAN_RXFSN),0),2),'fm9999999990.00') end stl,
+              case nvl(sum(LOAN_RXFSN),0) when 0 then '-' else  to_char(round(nvl(sum(LOAN_RXFCUST),0)/nvl(sum(LOAN_RXFSN),0),2),'fm9999999990.00') end kdstl
+          from CFC_DM.TDM_IA_LOAN_D
+    </sql>
+
+    <!--总投放图表1-->
+    <select id="queryTotalLendTFChart" resultType="Map">
+       with a as(
+          <include refid="queryTotalLendSQL"></include>
+        <![CDATA[WHERE STATIS_DATE>=#{beginDate} AND STATIS_DATE<=#{beginDate}]]>
+        ),
+         b as(
+          <include refid="queryTotalLendSQL"></include>
+        <![CDATA[ WHERE STATIS_DATE>=#{compareBeginDate} AND STATIS_DATE<=#{compareEndDate}]]>
+        )
+        select
+        a.stl,a.kdstl,b.stl bstl,b.kdstl bkdstl,
+        a.LOAN_ALL,a.LOAN_ALL_CUST,a.LOAN_ALL_KDJ,
+        case b.LOAN_ALL  when 0 then '-' else to_char(round((a.LOAN_ALL-b.LOAN_ALL)*100 /b.LOAN_ALL,2)) end LOAN_ALL_UP,
+        case b.LOAN_ALL_CUST  when 0 then '-' else to_char(round((a.LOAN_ALL_CUST-b.LOAN_ALL_CUST)*100 /b.LOAN_ALL_CUST,2)) end LOAN_ALL_CUST_UP,
+        case b.LOAN_ALL_KDJ  when 0 then '-' else to_char(round((a.LOAN_ALL_KDJ-b.LOAN_ALL_KDJ)*100 /b.LOAN_ALL,2)) end LOAN_ALL_KDJ_UP,
+        a.LOAN_BUY,a.LOAN_BUY_CUST,a.LOAN_BUY_KDJ,
+        case b.LOAN_BUY  when 0 then '-' else to_char(round((a.LOAN_BUY-b.LOAN_BUY)*100 /b.LOAN_BUY,2)) end LOAN_BUY_UP,
+        case b.LOAN_BUY_CUST  when 0 then '-' else to_char(round((a.LOAN_BUY_CUST-b.LOAN_BUY_CUST)*100 /b.LOAN_BUY_CUST,2)) end LOAN_BUY_CUST_UP,
+        case b.LOAN_BUY_KDJ  when 0 then '-' else to_char(round((a.LOAN_BUY_KDJ-b.LOAN_BUY_KDJ)*100 /b.LOAN_BUY_KDJ,2)) end LOAN_BUY_KDJ_UP,
+        a.AMOUT_YG,a.LOAN_SHOPE_CUST,a.AMOUT_YG_KDJ,
+        case b.AMOUT_YG  when 0 then '-' else to_char(round((a.AMOUT_YG-b.AMOUT_YG)*100 /b.AMOUT_YG,2)) end AMOUT_YG_UP,
+        case b.LOAN_SHOPE_CUST  when 0 then '-' else to_char(round((a.LOAN_SHOPE_CUST-b.LOAN_SHOPE_CUST)*100 /b.LOAN_SHOPE_CUST,2)) end LOAN_SHOPE_CUST_UP,
+        case b.AMOUT_YG_KDJ  when 0 then '-' else to_char(round((a.AMOUT_YG_KDJ-b.AMOUT_YG_KDJ)*100 /b.AMOUT_YG_KDJ,2)) end AMOUT_YG_KDJ_UP,
+        a.LOAN_SHOP,a.LOAN_SHOP_CUST,a.LOAN_SHOP_KDJ,
+        case b.LOAN_SHOP  when 0 then '-' else to_char(round((a.LOAN_SHOP-b.LOAN_SHOP)*100 /b.LOAN_ALL,2)) end LOAN_SHOP_UP,
+        case b.LOAN_SHOP_CUST  when 0 then '-' else to_char(round((a.LOAN_SHOP_CUST-b.LOAN_SHOP_CUST)*100 /b.LOAN_SHOP_CUST,2)) end LOAN_SHOP_CUST_UP,
+        case b.LOAN_SHOP_KDJ  when 0 then '-' else to_char(round((a.LOAN_SHOP_KDJ-b.LOAN_SHOP_KDJ)*100 /b.LOAN_SHOP_KDJ,2)) end LOAN_SHOP_KDJ_UP,
+        a.LOAN_ONLINE,a.LOAN_ONLINE_CUST,a.LOAN_ONLINE_KDJ,
+        case b.LOAN_ONLINE  when 0 then '-' else to_char(round((a.LOAN_ONLINE-b.LOAN_ONLINE)*100 /b.LOAN_ONLINE,2)) end LOAN_ONLINE_UP,
+        case b.LOAN_ONLINE_CUST  when 0 then '-' else to_char(round((a.LOAN_ONLINE_CUST-b.LOAN_ONLINE_CUST)*100 /b.LOAN_ONLINE_CUST,2)) end LOAN_ONLINE_CUST_UP,
+        case b.LOAN_ONLINE_KDJ  when 0 then '-' else to_char(round((a.LOAN_ONLINE_KDJ-b.LOAN_ONLINE_KDJ)*100 /b.LOAN_ONLINE_KDJ,2)) end LOAN_ONLINE_KDJ_UP,
+        a.LOAN_OTHER,a.LOAN_OTHER_CUST,a.LOAN_OTHER_KDJ,
+        case b.LOAN_OTHER  when 0 then '-' else to_char(round((a.LOAN_OTHER-b.LOAN_OTHER)*100 /b.LOAN_OTHER,2)) end LOAN_OTHER_UP,
+        case b.LOAN_OTHER_CUST  when 0 then '-' else to_char(round((a.LOAN_OTHER_CUST-b.LOAN_OTHER_CUST)*100 /b.LOAN_OTHER_CUST,2)) end LOAN_OTHER_CUST_UP,
+        case b.LOAN_OTHER_KDJ  when 0 then '-' else to_char(round((a.LOAN_OTHER_KDJ-b.LOAN_OTHER_KDJ)*100 /b.LOAN_OTHER_KDJ,2)) end LOAN_OTHER_KDJ_UP,
+        a.LOAN_CASH,a.LOAN_CASH_CUST,a.LOAN_CASH_KDJ,
+        case b.LOAN_CASH  when 0 then '-' else to_char(round((a.LOAN_CASH-b.LOAN_CASH)*100 /b.LOAN_CASH,2)) end LOAN_CASH_UP,
+        case b.LOAN_CASH_CUST  when 0 then '-' else to_char(round((a.LOAN_CASH_CUST-b.LOAN_CASH_CUST)*100 /b.LOAN_CASH_CUST,2)) end LOAN_CASH_CUST_UP,
+        case b.LOAN_CASH_KDJ  when 0 then '-' else to_char(round((a.LOAN_CASH_KDJ-b.LOAN_CASH_KDJ)*100 /b.LOAN_CASH_KDJ,2)) end LOAN_CASH_KDJ_UP,
+        a.LOAN_ANY,a.LOAN_ANY_CUST,a.LOAN_ANY_KDJ,
+        case b.LOAN_ANY  when 0 then '-' else to_char(round((a.LOAN_ANY-b.LOAN_ANY)*100 /b.LOAN_ANY,2)) end LOAN_ANY_UP,
+        case b.LOAN_ANY_CUST  when 0 then '-' else to_char(round((a.LOAN_ANY_CUST-b.LOAN_ANY_CUST)*100 /b.LOAN_ANY_CUST,2)) end LOAN_ANY_CUST_UP,
+        case b.LOAN_ANY_KDJ  when 0 then '-' else to_char(round((a.LOAN_ANY_KDJ-b.LOAN_ANY_KDJ)*100 /b.LOAN_ANY_KDJ,2)) end LOAN_ANY_KDJ_UP,
+
+        a.LOAN_INSTALL,
+        a.LOAN_INSTALL_CUST,
+        a.LOAN_INSTALL_KDJ,
+        case b.LOAN_INSTALL  when 0 then '-' else to_char(round((a.LOAN_INSTALL-b.LOAN_INSTALL)*100 /b.LOAN_INSTALL,2)) end LOAN_INSTALL_UP,
+        case b.LOAN_INSTALL_CUST  when 0 then '-' else to_char(round((a.LOAN_INSTALL_CUST-b.LOAN_INSTALL_CUST)*100 /b.LOAN_INSTALL_CUST,2)) end LOAN_INSTALL_CUST_UP,
+        case b.LOAN_INSTALL_KDJ  when 0 then '-' else to_char(round((a.LOAN_INSTALL_KDJ-b.LOAN_INSTALL_KDJ)*100 /b.LOAN_INSTALL_KDJ,2)) end LOAN_INSTALL_KDJ_UP
+        from a,b
+    </select>
+    
+    <!--客户申请分析-->
+    <select id="queryCustApplyTable" resultType="Map">
+        SELECT * FROM (
+            SELECT  cust_chnl,count(distinct CUST_ID) total_num,'CUST_APPLY' code
+            FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+            WHERE CUST_APPLY &gt;= #{beginDate} AND CUST_APPLY &lt;= #{endDate}
+            <if test="flag != null and flag == 2 ">
+                AND CUST_PRECRD is NOT NULL
+            </if>
+            GROUP BY cust_chnl
+            union
+            SELECT  cust_chnl,count(distinct CUST_ID) total_num,'CUST_OPEN' code
+            FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+            WHERE CUST_OPEN &gt;= #{beginDate} AND CUST_OPEN &lt;= #{endDate}
+            <if test="flag != null and flag == 2 ">
+                AND CUST_PRECRD is NOT NULL
+            </if>
+            GROUP BY cust_chnl
+            union
+            SELECT  cust_chnl,count(distinct CUST_ID) total_num,'CUST_SUCAPY' code
+            FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+            WHERE CUST_SUCAPY &gt;= #{beginDate} AND CUST_SUCAPY &lt;= #{endDate}
+            <if test="flag != null and flag == 2 ">
+                AND CUST_PRECRD is NOT NULL
+            </if>
+            GROUP BY cust_chnl
+            union
+            SELECT  cust_chnl,count(distinct CUST_ID) total_num,'CUST_SUCOPN' code
+            FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+            WHERE CUST_SUCOPN &gt;= #{beginDate} AND CUST_SUCOPN &lt;= #{endDate}
+            <if test="flag != null and flag == 1 ">
+                AND CUST_PRECRD IS NULL
+            </if>
+            <if test="flag != null and flag == 2 ">
+                AND CUST_PRECRD is NOT NULL
+            </if>
+            GROUP BY cust_chnl
+            UNION
+            select a.cust_chnl,count(distinct a.cust_id)  total_num,'CUST_USE' code
+            FROM cfc_dm.TDM_IA_CUSTAPPLY_D a,cfc_dm.TDM_IA_LOAN_D b
+            where a.cust_id = b.loan_all_cust
+           and b.STATIS_DATE &gt;= #{beginDate} AND b.STATIS_DATE &lt;= #{endDate}
+           and a.CUST_SUCOPN &gt;= #{beginDate} AND a.CUST_SUCOPN &lt;= #{endDate}
+            <if test="flag != null and flag == 1 ">
+                AND IS_NEW_FLAG = 1 AND IS_PRE_FLAG = 0
+            </if>
+            <if test="flag != null and flag == 2 ">
+                AND IS_PRE_FLAG = 1
+            </if>
+            group by a.cust_chnl
+        )
+        where cust_chnl is not null
+        ORDER BY  cust_chnl
+    </select>
+
+    <select id="queryCusts" resultType="Map">
+        select cust_chnl,count(distinct loan_all_cust) total_num
+        from cfc_dm.TDM_IA_LOAN_D
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        group by cust_chnl
+    </select>
+
+    <select id="queryCustChannelChart" resultType="Map">
+        SELECT  count(distinct CUST_ID) total_num,'CUST_APPLY' code
+        FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+        WHERE
+        <if test="endDate != null and endDate != '' ">
+            CUST_APPLY &gt;= #{beginDate}
+            AND CUST_APPLY &lt;= #{endDate}
+        </if>
+        <if test="endDate == null ">
+            CUST_APPLY &lt;= #{beginDate}
+        </if>
+        union
+        --申请成功
+        SELECT  count(distinct CUST_ID) total_num,'CUST_SUCAPY' code
+        FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+        WHERE
+        <if test="endDate != null and endDate != '' ">
+            CUST_SUCAPY &gt;= #{beginDate}
+            AND CUST_SUCAPY &lt;= #{endDate}
+        </if>
+        <if test="endDate == null ">
+            CUST_SUCAPY &lt; #{beginDate}
+        </if>
+        union
+        --开通成功客户
+        SELECT  count(distinct CUST_ID) total_num,'CUST_SUCOPN' code
+        FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+        WHERE
+        <if test="endDate != null and endDate != '' ">
+            CUST_SUCOPN &gt;= #{beginDate}
+            AND CUST_SUCOPN &lt;= #{endDate}
+        </if>
+        <if test="endDate == null ">
+            CUST_SUCOPN &lt; #{beginDate}
+        </if>
+        --申请开通客户
+        UNION
+        SELECT  count(distinct CUST_ID) total_num,'CUST_OPEN' code
+        FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+        WHERE
+        <if test="endDate != null and endDate != '' ">
+            CUST_OPEN &gt;= #{beginDate}
+            AND CUST_OPEN &lt;= #{endDate}
+        </if>
+        <if test="endDate == null ">
+            CUST_OPEN &lt; #{beginDate}
+        </if>
+        AND CUST_PRECRD is NOT NULL
+        --自动开通客户
+        UNION
+        SELECT  count(distinct CUST_ID) total_num,'CUST_AUTOPN' code
+        FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+        WHERE
+        <if test="endDate != null and endDate != '' ">
+            CUST_AUTOPN &gt;= #{beginDate}
+            AND CUST_AUTOPN &lt;= #{endDate}
+        </if>
+        <if test="endDate == null ">
+            CUST_AUTOPN &lt; #{beginDate}
+        </if>
+        --预授信用户
+        UNION
+        SELECT  count(distinct CUST_ID) total_num,'CUST_PRECRD' code
+        FROM cfc_dm.TDM_IA_CUSTAPPLY_D
+        WHERE
+        <if test="endDate != null and endDate != '' ">
+            CUST_PRECRD&gt;= #{beginDate}
+            AND CUST_PRECRD &lt;= #{endDate}
+        </if>
+        <if test="endDate == null ">
+            CUST_PRECRD &lt; #{beginDate}
+        </if>
+    </select>
+    
+    <select id="queryCustStlChart" resultType="Map">
+        SELECT count(distinct CUST_RXFYG) CUST_RXFYG,count(DISTINCT CUST_YG) CUST_YG,
+          count(distinct CUST_YGRXF) CUST_YGRXF
+        FROM CFC_DM.TDM_IA_PERMEABILITY_D
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+    </select>
+    <!--随借随还-->
+    <select id="querySjshTfChart" resultType="Map">
+        SELECT IS_PROMOTION_FLAG,sum(LOAN_ANY) LOAN_ANY,count(distinct LOAN_ANY_CUST) LOAN_ANY_CUST
+        from cfc_dm.TDM_IA_LOAN_D
+        where IS_PROMOTION_FLAG is not null AND STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        GROUP BY IS_PROMOTION_FLAG
+    </select>
+
+    <!--随借随还 额度影响-->
+    <select id="querySjshEdyxChart" resultType="Map">
+        SELECT cred,nvl((
+          select sum(b.cred_cust_num) from cfc_dm.tdm_ia_cred_d b where b.cred = a.cred
+        <if test="endDate lt 20170520 ">
+            and  b.STATIS_DATE = '20170628'
+        </if>
+        <if test="endDate >= 20170520 ">
+            and  b.STATIS_DATE &gt;= #{beginDate} and b.STATIS_DATE &lt;= #{endDate}
+        </if>
+
+        ),0 ) LOAN_ALL_CUST,
+        nvl(sum(LOAN_ANY),0) LOAN_ANY,count(distinct LOAN_ANY_CUST) LOAN_ANY_CUST
+        from cfc_dm.TDM_IA_LOAN_D a
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+          AND cred is not null
+        GROUP BY cred
+        ORDER BY max(cred_order)
+    </select>
+
+
+    <!--随借随还 营销活动明细-->
+    <select id="queryTicketActivityName" resultType="Map">
+        SELECT  TICKET_ACTIVITY_NAME,sum(TICKET_NUM) TICKET_NUM,sum(CONSUME_AMOUNT) CONSUME_AMOUNT,
+          sum(RECEIVABLE_POUNDAGE) RECEIVABLE_POUNDAGE,sum(TICKET_AMOUNT) TICKET_AMOUNT
+        from cfc_dm.TDM_IA_TICKET_D
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        AND PRODID = #{prodid}
+        GROUP BY ticket_activity_name
+    </select>
+
+    <!--现金分期 额度影响-->
+    <select id="queryCashEdyxChart" resultType="Map">
+        SELECT cred,nvl((
+          select sum(b.cred_cust_num) from cfc_dm.tdm_ia_cred_d b where b.cred = a.cred
+            <if test="endDate lt 20170520 ">
+                and  b.STATIS_DATE = '20170628'
+            </if>
+            <if test="endDate >= 20170520 ">
+                and  b.STATIS_DATE &gt;= #{beginDate} and b.STATIS_DATE &lt;= #{endDate}
+            </if>
+        ),0 ) LOAN_ALL_CUST,
+        nvl(sum(LOAN_INSTALL),0) LOAN_INSTALL,count(distinct LOAN_INSTALL_CUST) LOAN_INSTALL_CUST
+        from cfc_dm.TDM_IA_LOAN_D a
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        AND cred is not null
+        GROUP BY cred
+        ORDER BY max(cred_order)
+    </select>
+    <!--随借随还 客群分析 首购与复购-->
+    <select id="queryAnyGroupNewAndOld" resultType="Map">
+        SELECT count(distinct LOAN_ANY_CUST) LOAN_ANY_CUST,'SHOUGOU' type
+        FROM cfc_dm.TDM_IA_LOAN_D where IS_NEW_FLAG =1
+        and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        UNION
+        SELECT count(distinct LOAN_ANY_CUST) LOAN_ANY_CUST,'FUGOU' type FROM cfc_dm.TDM_IA_LOAN_D where IS_NEW_FLAG =0
+        and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+    </select>
+
+    <!--随借随还 客群分析 是否苏宁员工-->
+    <select id="queryAnyGroupSuningOrNot" resultType="Map">
+       SELECT count(distinct LOAN_ANY_CUST) total_num,'SUNING' type
+       FROM cfc_dm.TDM_IA_LOAN_D where YG_STAFF =1
+       and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+       UNION
+       SELECT count(distinct LOAN_ANY_CUST) total_num,'NOTSUNING' type
+       FROM cfc_dm.TDM_IA_LOAN_D where YG_STAFF =0
+       and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+    </select>
+
+    <select id="queryAnyCustChannel" resultType="Map">
+        select cust_chnl,count(distinct LOAN_ANY_CUST) total_num
+        from cfc_dm.TDM_IA_LOAN_D
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate} and YG_STAFF =0 and cust_chnl is not null
+        group by cust_chnl
+    </select>
+
+    <select id="queryCashInstallChannel" resultType="Map">
+        select cust_chnl,count(distinct LOAN_INSTALL_CUST) total_num
+        from cfc_dm.TDM_IA_LOAN_D
+        where STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        and YG_STAFF =0 and cust_chnl is not null
+        group by cust_chnl
+    </select>
+
+    <!--现金分期 客群分析 是否苏宁员工-->
+    <select id="queryCashInstallSuningOrNot" resultType="Map">
+        SELECT count(distinct LOAN_INSTALL_CUST) total_num,'SUNING' type
+        FROM cfc_dm.TDM_IA_LOAN_D where YG_STAFF =1
+        and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        UNION
+        SELECT count(distinct LOAN_INSTALL_CUST) total_num,'NOTSUNING' type
+        FROM cfc_dm.TDM_IA_LOAN_D where YG_STAFF =0
+        and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+    </select>
+
+    <!--现金分析 客群分析 首购与复购-->
+    <select id="queryCashGroupNewAndOld" resultType="Map">
+        SELECT count(distinct LOAN_INSTALL_CUST) LOAN_INSTALL_CUST,'SHOUGOU' type
+        FROM cfc_dm.TDM_IA_LOAN_D where IS_NEW_FLAG =1
+        and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+        UNION
+        SELECT count(distinct LOAN_INSTALL_CUST) LOAN_INSTALL_CUST,'FUGOU' type FROM cfc_dm.TDM_IA_LOAN_D where IS_NEW_FLAG =0
+        and STATIS_DATE &gt;= #{beginDate} and STATIS_DATE &lt;= #{endDate}
+    </select>
+
+    <select id="queryCashLoanData" resultType="Map">
+        <![CDATA[
+        select 'chaxun' AS TP,cterm,IS_PROMOTION_FLAG,sum(LOAN_INSTALL) AS LOAN_INSTALL from cfc_dm.TDM_IA_LOAN_D
+          where statis_date >= #{beginDate} and statis_date <=#{endDate} and IS_YG = 0 group by cterm,IS_PROMOTION_FLAG
+        union all
+        select 'duibi' AS TP ,cterm,IS_PROMOTION_FLAG,sum(LOAN_INSTALL) AS LOAN_INSTALL from cfc_dm.TDM_IA_LOAN_D
+          where statis_date >= #{compareBeginDate} and statis_date <=#{compareEndDate} and IS_YG = 0 group by cterm,IS_PROMOTION_FLAG
+        ]]>
+    </select>
+
+    <select id="queryCashCustChannel" resultType="Map">
+        <![CDATA[
+            SELECT cterm,nvl(sum(LOAN_INSTALL),0) LOAN_INSTALL, count(distinct LOAN_INSTALL_CUST) LOAN_INSTALL_CUST
+            from cfc_dm.TDM_IA_LOAN_D
+            WHERE  cterm is not null and statis_date >= #{beginDate} and statis_date <=#{endDate}
+            GROUP BY cterm
+        ]]>
+    </select>
+
+    <select id="queryRateTargetData" resultType="Map">
+        <![CDATA[
+            select a.area_code,
+               a.area_name,
+               a.LOAN_SHOP,
+               a.LOAN_SHOP_NEWCUST,
+               a.SHOP_NEWCUST,
+               a.LOAN_CASH,
+               a.LOAN_CASHSELF,
+               a.CASHSELF_NEWCUST,
+               a.LOAN_OTHER,
+               a.OTHER_NEWCUST,
+               a.APP_CUST_NO,
+               b.target_loan_shop,
+               b.target_LOAN_SHOP_NEWCUST,
+               b.target_SHOP_NEWCUST,
+               b.target_LOAN_CASH,
+               b.target_LOAN_CASHSELF,
+               b.target_CASHSELF_NEWCUST,
+               b.target_LOAN_OTHER,
+               b.target_OTHER_NEWCUST,
+               b.target_APP_APPLY
+          from (select *
+                  from cfc_dm.TDM_IA_AREA_D
+                 where YEAR_NUM = #{yearNum}
+                   and QUARTER_NUM = #{quarterNum}) a
+          left join (SELECT area_code,
+                            area_name,
+                            sum(loan_shop) as target_loan_shop,
+                            sum(LOAN_SHOP_NEWCUST) as target_LOAN_SHOP_NEWCUST,
+                            sum(SHOP_NEWCUST) as target_SHOP_NEWCUST,
+                            sum(LOAN_CASH) as target_LOAN_CASH,
+                            sum(LOAN_CASHSELF) as target_LOAN_CASHSELF,
+                            sum(CASHSELF_NEWCUST) as target_CASHSELF_NEWCUST,
+                            sum(LOAN_OTHER) as target_LOAN_OTHER,
+                            sum(OTHER_NEWCUST) as target_OTHER_NEWCUST,
+                            sum(APP_CUST_NO) as target_APP_APPLY
+                       FROM CFC_DM.TDM_IA_MAN_AREA_D
+                      where year_num = #{yearNum}
+                        and quarter_num <= #{quarterNum}
+                      group by area_code, area_name) b
+            on a.area_code = b.area_code
+        ]]>
+    </select>
+
+    <select id="queryRateTargetWeightData" resultType="Map">
+        <![CDATA[
+          SELECT kpi_code,kpi_name,weight,kpi_up,kpi_down FROM CFC_DM.TDM_IA_MAN_KPI_D
+        ]]>
+    </select>
+</mapper>
